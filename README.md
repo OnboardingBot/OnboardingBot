@@ -1,1 +1,2 @@
-# OnboardingBot
+# CSC510Project-TheByoms
+Onboarding bot.

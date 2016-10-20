@@ -1,0 +1,104 @@
+{
+  "teamlist": [
+    "CSC510",
+    "CSC517",
+    "CSC540",
+    "CSC591"
+  ],
+  "team": [
+    {
+      "name": "CSC510",
+      "channel": "CSC510-SE",
+      "mailinglist": "csc510@ncsu.edu",
+      "repositories": [
+        "seleniumtesting",
+        "webbasics",
+        "knockout"
+      ],
+      "database": "oracle.csc510,",
+      "softwares": [
+        "Node.js",
+        "Istanbul",
+        "Esprima",
+        "JDK"
+      ]
+    },
+    {
+      "name": "CSC517",
+      "channel": "CSC517-OODD",
+      "mailinglist": "csc517@ncsu.edu",
+      "repositories": [
+        "rubyonrails",
+        "designpatterns"
+      ],
+      "database": [
+        "oracle.csc517",
+        "oracle.csc517b"
+      ],
+      "softwares": [
+        "JDK",
+        "MySQL",
+        "Ruby",
+        "Ruby on Rails"
+      ]
+    },
+    {
+      "name": "CSC540",
+      "channel": "CSC510-DBMS",
+      "mailinglist": "csc510@ncsu.edu",
+      "repositories": [
+        "normalization",
+        "sqlbasics",
+        "optimization"
+      ],
+      "database": [
+        "oracle.csc540",
+        "oracle.csc540b"
+      ],
+      "softwares": [
+        "MySQL",
+        "JDK",
+        "NGINX"
+      ]
+    },
+    {
+      "name": "CSC591",
+      "channel": "CSC591-DevOps",
+      "mailinglist": "csc591@ncsu.edu",
+      "repositories": [
+        "provisioning",
+        "fuzzing",
+        "complexity"
+      ],
+      "database": "oracle.csc591",
+      "softwares": [
+        "Node.js",
+        "Python",
+        "Jenkins",
+        "NGINX"
+      ]
+    }
+  ],
+  "user": [
+    {
+      "name": "rahuja",
+      "ipaddress": "192.168.25.10"
+    },
+    {
+      "name": "nramesh2",
+      "ipaddress": "192.168.23.35"
+    },
+    {
+      "name": "ssreeni",
+      "ipaddress": "192.168.33.245"
+    },
+    {
+      "name": "kpartha2",
+      "ipaddress": "192.168.31.23"
+    },
+    {
+      "name": "kaushi",
+      "ipaddress": "192.168.12.32"
+    }
+  ]
+}
