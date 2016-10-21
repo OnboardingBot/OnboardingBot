@@ -1,5 +1,3 @@
-﻿package selenium.tests;
-
 import static org.junit.Assert.*;
 
 import java.util.List;
