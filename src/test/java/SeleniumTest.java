@@ -23,7 +23,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.URL;
 
-public class SeleniumTesting
+public class SeleniumTest
 {
 	private static WebDriver driver;
 	
