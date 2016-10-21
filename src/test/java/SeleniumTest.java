@@ -1,4 +1,4 @@
-package selenium.tests;
+﻿package selenium.tests;
 
 import static org.junit.Assert.*;
 
