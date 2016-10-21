@@ -189,6 +189,6 @@ public void SoftwareAF() throws InterruptedException
 	
 	TimeUnit.SECONDS.sleep(3);
 
-	}
+}
 
 }
