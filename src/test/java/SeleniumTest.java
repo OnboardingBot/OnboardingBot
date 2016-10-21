@@ -27,7 +27,7 @@ public class SeleniumTest
 	private static WebDriverWait wait;
 	
 	public static final String USERNAME = "rahuja910";
-	public static final String ACCESS_KEY = "83aafeba-7a95-48dd-9867-51d1fffcba68";
+	public static final String ACCESS_KEY = API_KEY;
 	public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:443/wd/hub";
 	
 	@BeforeClass
@@ -125,7 +125,7 @@ public void SoftwareAF() throws InterruptedException
 
 	// Type in our test user login info.
 	email.sendKeys("kaushi@ncsu.edu");
-	pw.sendKeys("K@ushik01");
+	pw.sendKeys("******");
 
 	// Click
 	WebElement signin = driver.findElement(By.id("signin_btn"));
