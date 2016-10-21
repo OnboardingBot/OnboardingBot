@@ -1,1 +1,4 @@
+language: java
 
+addons:
+  sauce_connect: true
