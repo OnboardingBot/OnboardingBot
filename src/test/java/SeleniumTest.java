@@ -110,59 +110,6 @@ public class SeleniumTest
 		
 		
 	}
-@Test
-public void SoftwareHF() throws InterruptedException
-{
-	// Introductory message - Hi!
-	/*WebElement messageBotIntro = driver.findElement(By.id("message-input"));
-	messageBotIntro.sendKeys("@onboarding-bot Hi");
-	messageBotIntro.sendKeys(Keys.RETURN);*/
-	
-	TimeUnit.SECONDS.sleep(3);
-	
-	//WebElement msg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[contains(@id,â€™msg_1476829038_000021â€™)]")));
-	//String message = msg.getText();
-	//System.out.println(message);
-	
-	// User selects the option - 'Github'
-	
-	WebElement messageBotDB = driver.findElement(By.id("message-input"));
-	messageBotDB.sendKeys("Software");
-	messageBotDB.sendKeys(Keys.RETURN);
-	
-	TimeUnit.SECONDS.sleep(3);
-	
-	// User provides the Team Name
-	
-	WebElement messageBotTeamName = driver.findElement(By.id("message-input"));
-	messageBotTeamName.sendKeys("CSC540");
-	messageBotTeamName.sendKeys(Keys.RETURN);
-	
-	TimeUnit.SECONDS.sleep(3);
-	
-	// User provides the Repo name
-	
-	WebElement messageBotDBName = driver.findElement(By.id("message-input"));
-	messageBotDBName.sendKeys("MySQL");
-	messageBotDBName.sendKeys(Keys.RETURN);
-	
-	TimeUnit.SECONDS.sleep(3);
-	
-	// User confirms -'YES'; Bot provides access to the user & sends appropriate message.
-	
-	WebElement messageBotConfirm = driver.findElement(By.id("message-input"));
-	messageBotConfirm.sendKeys("Yes");
-	messageBotConfirm.sendKeys(Keys.RETURN);
-			
-	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'You have been added as an collaborator for the repository designpatterns']")));
-	WebElement msgFour = driver.findElement(
-					By.xpath("//span[@class='message_body' and text() = 'You have been added as an collaborator for the repository designpatterns']"));
-	String messageFour = msgFour.getText();
-	System.out.println(messageFour);
-	assertNotNull(messageFour);
-	
-	
-}
 
 //Github - Alternate Flow
 @Test
