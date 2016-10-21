@@ -39,6 +39,7 @@ public class SeleniumTest
 		DesiredCapabilities caps = DesiredCapabilities.chrome();
 	    caps.setCapability("platform", "Windows XP");
 	    caps.setCapability("version", "43.0");
+		caps.setCapability("idleTimeout", "360");
 	 
 	    driver = new RemoteWebDriver(new URL(URL), caps);
 	    wait = new WebDriverWait(driver, 30);
