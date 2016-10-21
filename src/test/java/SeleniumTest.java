@@ -26,6 +26,7 @@ import java.net.URL;
 public class SeleniumTest
 {
 	private static WebDriver driver;
+	private static WebDriverWait wait;
 	
 	public static final String USERNAME = "rahuja910";
 	public static final String ACCESS_KEY = "83aafeba-7a95-48dd-9867-51d1fffcba68";
@@ -40,6 +41,7 @@ public class SeleniumTest
 	    caps.setCapability("version", "43.0");
 	 
 	    driver = new RemoteWebDriver(new URL(URL), caps);
+	    wait = new WebDriverWait(driver, 30);
 		//ChromeDriverManager.getInstance().setup();
 		//driver = new ChromeDriver();
 	}
@@ -98,6 +100,7 @@ public class SeleniumTest
 		messageBotConfirm.sendKeys("Yes");
 		messageBotConfirm.sendKeys(Keys.RETURN);
 				
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'You have been given access to the database oracle.csc510']")));
 		WebElement msgFour = driver.findElement(
 						By.xpath("//span[@class='message_body' and text() = 'You have been given access to the database oracle.csc510']"));
 		String messageFour = msgFour.getText();
@@ -177,6 +180,7 @@ public void DatabaseAF() throws InterruptedException
 	messageBotConfirm.sendKeys("No");
 	messageBotConfirm.sendKeys(Keys.RETURN);
 			
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'I am canceling the current request']")));
 	WebElement msgFour = driver.findElement(
 					By.xpath("//span[@class='message_body' and text() = 'I am canceling the current request']"));
 	String messageFour = msgFour.getText();
@@ -230,6 +234,7 @@ public void SoftwareHF() throws InterruptedException
 	messageBotConfirm.sendKeys("Yes");
 	messageBotConfirm.sendKeys(Keys.RETURN);
 			
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'You have been added as an collaborator for the repository designpatterns']")));
 	WebElement msgFour = driver.findElement(
 					By.xpath("//span[@class='message_body' and text() = 'You have been added as an collaborator for the repository designpatterns']"));
 	String messageFour = msgFour.getText();
@@ -308,7 +313,7 @@ public void SoftwareAF() throws InterruptedException
 	WebElement messageBotConfirm = driver.findElement(By.id("message-input"));
 	messageBotConfirm.sendKeys("No");
 	messageBotConfirm.sendKeys(Keys.RETURN);
-			
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'I am canceling the current request']")));
 	WebElement msgFour = driver.findElement(
 					By.xpath("//span[@class='message_body' and text() = 'I am canceling the current request']"));
 	String messageFour = msgFour.getText();
@@ -364,7 +369,7 @@ public void GithubHF() throws InterruptedException
 	WebElement messageBotConfirm = driver.findElement(By.id("message-input"));
 	messageBotConfirm.sendKeys("Yes");
 	messageBotConfirm.sendKeys(Keys.RETURN);
-			
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'You have been added as an collaborator for the repository designpatterns']")));
 	WebElement msgFour = driver.findElement(
 					By.xpath("//span[@class='message_body' and text() = 'You have been added as an collaborator for the repository designpatterns']"));
 	String messageFour = msgFour.getText();
@@ -419,7 +424,8 @@ public void GithubAF() throws InterruptedException
 	WebElement messageBotConfirm = driver.findElement(By.id("message-input"));
 	messageBotConfirm.sendKeys("No");
 	messageBotConfirm.sendKeys(Keys.RETURN);
-			
+	
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'I am canceling the current request']")));
 	WebElement msgFour = driver.findElement(
 					By.xpath("//span[@class='message_body' and text() = 'I am canceling the current request']"));
 	String messageFour = msgFour.getText();
