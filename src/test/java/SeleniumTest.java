@@ -1,4 +1,4 @@
-package selenium.tests;
+﻿package selenium.tests;
 
 import static org.junit.Assert.*;
 
@@ -189,6 +189,6 @@ public void SoftwareAF() throws InterruptedException
 	
 	TimeUnit.SECONDS.sleep(3);
 
-}
+	}
 
 }
