@@ -110,7 +110,6 @@ public class SeleniumTest
 		
 		
 	}
-
 @Test
 public void SoftwareHF() throws InterruptedException
 {
@@ -165,15 +164,39 @@ public void SoftwareHF() throws InterruptedException
 	
 }
 
-// Github - Happy Flow
-
+//Github - Alternate Flow
 @Test
-public void GithubHF() throws InterruptedException
+public void SoftwareAF() throws InterruptedException
 {
+	driver.get("https://csc510-seproject.slack.com");
+
+	// Wait until page loads and we can see a sign in button.
+	WebDriverWait wait = new WebDriverWait(driver, 30);
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("signin_btn")));
+
+	// Find email and password fields.
+	WebElement email = driver.findElement(By.id("email"));
+	WebElement pw = driver.findElement(By.id("password"));
+
+	// Type in our test user login info.
+	email.sendKeys("kaushi@ncsu.edu");
+	pw.sendKeys("K@ushik01");
+
+	// Click
+	WebElement signin = driver.findElement(By.id("signin_btn"));
+	signin.click();
+
+	// Wait until we go to general channel.
+	wait.until(ExpectedConditions.titleContains("general"));
+
+	// Switch to #bots channel and wait for it to load.
+	driver.get("https://csc510-seproject.slack.com/messages/@onboarding-bot/");
+	wait.until(ExpectedConditions.titleContains("onboarding-bot"));
+
 	// Introductory message - Hi!
-	/*WebElement messageBotIntro = driver.findElement(By.id("message-input"));
+	WebElement messageBotIntro = driver.findElement(By.id("message-input"));
 	messageBotIntro.sendKeys("@onboarding-bot Hi");
-	messageBotIntro.sendKeys(Keys.RETURN);*/
+	messageBotIntro.sendKeys(Keys.RETURN);
 	
 	TimeUnit.SECONDS.sleep(3);
 	
@@ -184,7 +207,7 @@ public void GithubHF() throws InterruptedException
 	// User selects the option - 'Github'
 	
 	WebElement messageBotDB = driver.findElement(By.id("message-input"));
-	messageBotDB.sendKeys("Github");
+	messageBotDB.sendKeys("Software");
 	messageBotDB.sendKeys(Keys.RETURN);
 	
 	TimeUnit.SECONDS.sleep(3);
@@ -192,7 +215,7 @@ public void GithubHF() throws InterruptedException
 	// User provides the Team Name
 	
 	WebElement messageBotTeamName = driver.findElement(By.id("message-input"));
-	messageBotTeamName.sendKeys("CSC517");
+	messageBotTeamName.sendKeys("CSC540");
 	messageBotTeamName.sendKeys(Keys.RETURN);
 	
 	TimeUnit.SECONDS.sleep(3);
@@ -200,26 +223,25 @@ public void GithubHF() throws InterruptedException
 	// User provides the Repo name
 	
 	WebElement messageBotDBName = driver.findElement(By.id("message-input"));
-	messageBotDBName.sendKeys("designpatterns");
+	messageBotDBName.sendKeys("MySQL");
 	messageBotDBName.sendKeys(Keys.RETURN);
 	
 	TimeUnit.SECONDS.sleep(3);
 	
-	// User confirms -'YES'; Bot provides access to the user & sends appropriate message.
+	// User says 'No'; Bot cancels the request.
 	
 	WebElement messageBotConfirm = driver.findElement(By.id("message-input"));
-	messageBotConfirm.sendKeys("Yes");
+	messageBotConfirm.sendKeys("No");
 	messageBotConfirm.sendKeys(Keys.RETURN);
-	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'You have been added as an collaborator for the repository designpatterns']")));
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='message_body' and text() = 'I am canceling the current request']")));
 	WebElement msgFour = driver.findElement(
-					By.xpath("//span[@class='message_body' and text() = 'You have been added as an collaborator for the repository designpatterns']"));
+					By.xpath("//span[@class='message_body' and text() = 'I am canceling the current request']"));
 	String messageFour = msgFour.getText();
 	System.out.println(messageFour);
 	assertNotNull(messageFour);
 	
-	
+	TimeUnit.SECONDS.sleep(3);
+
 }
-
-
 
 }
