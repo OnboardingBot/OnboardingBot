@@ -13,7 +13,7 @@ Week 2
 | Deliverable   | Item/Status   |  Tasks Pending
 | ------------- | ------------  |  ------------
 | Use Case Identification       | Complete                 | NONE 
-| Create Mocking Data           | COmplete                 | Integrate with Use Case interaction for SlackBot
+| Create Mocking Data           | Complete                 | Integrate with Use Case interaction for SlackBot
 | Use Case 1 Bot interaction    | Complete                 |  https://trello.com/c/fckXTdFf
 | Use Case 2 Bot interaction    | In Progress              |  https://trello.com/c/KERGpbCh
 | Use Case 3 Bot interaction    | In Progress              | https://trello.com/c/wkFsLL1i
@@ -24,11 +24,11 @@ Week 3
 | Deliverable   | Item/Status   |  Tasks Pending
 | ------------- | ------------  |  ------------
 | Use Case Identification       | Complete                 | NONE 
-| Create Mocking Data           | COmplete                 | Integrate with Use Case interaction for SlackBot
+| Create Mocking Data           | Complete                 | Integrate with Use Case interaction for SlackBot
 | Use Case 1 Bot interaction    | Complete                 |  https://trello.com/c/fckXTdFf
 | Use Case 2 Bot interaction    | Complete                 |  https://trello.com/c/KERGpbCh
 | Use Case 3 Bot interaction    | Complete                 | https://trello.com/c/wkFsLL1i
-| Selenium Testing              | In Progress              | https://trello.com/c/TBeBhafk
-| ScreenCast                    | In Progress              | https://trello.com/c/aH1QkE7a
+| Selenium Testing              | Complete                 | https://trello.com/c/TBeBhafk
+| ScreenCast                    | Complete                 | https://trello.com/c/aH1QkE7a
 
 

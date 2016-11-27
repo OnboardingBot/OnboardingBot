@@ -1,0 +1,41 @@
+---
+
+- hosts: instances
+  sudo: yes
+
+  vars_prompt:
+    - name: "githubuser"
+      prompt: "Enter your github username"
+      private: no
+    - name: "githubpassword"
+      prompt: "Enter your github password"
+      private: yes 
+
+  tasks:
+
+    # - name: Update apt cache
+    #   apt: update_cache=true cache_valid_time=3600
+
+    # - name: Install nodejs
+    #   apt: pkg=nodejs state=installed
+
+    # - name: Install npm 
+    #   apt: pkg=npm state=installed
+
+    # - name: Install forever
+    #   command: npm install forever -g
+
+    # - name: Link nodejs to node
+    #   command: ln -s /usr/bin/nodejs /usr/bin/node
+
+    # - name: Install git
+    #   apt: pkg=git state=installed
+
+    - name: Cloning App Repository
+      git: repo=https://{{ githubuser }}:{{ githubpassword }}@github.ncsu.edu/rahuja/CSC510Project-TheByoms.git dest=/src/App/
+
+    # - name: Install npm packages
+    #   npm: path=/src/App/
+
+    # - name: Start AppServer
+    #   command: forever start /src/App/main.js
