@@ -19,7 +19,7 @@
         "webbasics",
         "knockout"
       ],
-      "database": "csc510,",
+      "database": "csc510",
       "softwares": [
         "Node.js",
         "Istanbul",

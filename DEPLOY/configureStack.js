@@ -5,14 +5,40 @@ var Ansible = require('node-ansible');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 
-var transporter = nodemailer.createTransport(smtpTransport({
-   service: 'Gmail',
-   auth: {
-       user: 'onboarding.bot510',
-       pass: process.env.EMAIL_PASS
-   }
-}));
+var MongoClient = require('mongodb').MongoClient,
+    assert = require('assert');
 
+var url = 'mongodb://45.55.165.167:27017/local';
+
+var transporter;
+var data;
+
+var getData = function(db, callback) {
+    // Get the documents collection
+    var collection = db.collection('data');
+    // Find some documents
+    collection.find({}, {
+        _id: 0
+    }).toArray(function(err, docs) {
+        assert.equal(err, null);
+        data = docs[0];
+        transporter = nodemailer.createTransport(smtpTransport({
+            service: data.software_details[0].service,
+            auth: {
+                user: data.software_details[0].user,
+                pass: process.env.EMAIL_PASS
+            }
+        }));
+        callback(docs);
+    });
+}
+
+MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    getData(db, function() {
+        db.close();
+    });
+});
 
 var config = {};
 config.token = process.env.DO_TOKEN;
@@ -84,10 +110,10 @@ function updateInventory(dropletId, stack, username, email) {
         if (data.droplet.id) {
             var dropletName = data.droplet.name;
             var ipAddress = data.droplet.networks.v4[0].ip_address;
-            var inventoryContent = '[instances]\n' + dropletName + ' ansible_ssh_host=' + ipAddress + ' ansible_ssh_user=root username='+username+' userkeyfile=./../../../keys/id_'+username+'.pub\n';
+            var inventoryContent = '[instances]\n' + dropletName + ' ansible_ssh_host=' + ipAddress + ' ansible_ssh_user=root username=' + username + ' userkeyfile=./../../../keys/id_' + username + '.pub\n';
         }
 
-        fs.writeFile('./ansible/inventory_'+username, inventoryContent, function(err) {
+        fs.writeFile('./ansible/inventory_' + username, inventoryContent, function(err) {
             if (err) {
                 return console.log(err);
             } else {
@@ -105,7 +131,7 @@ function updateInventory(dropletId, stack, username, email) {
 function runPlaybook(stack, username, email, ipAddress) {
     console.log('Starting playbook');
     var playbook = new Ansible.Playbook().playbook('./ansible/' + stack);
-    playbook.inventory('./ansible/inventory_'+username);
+    playbook.inventory('./ansible/inventory_' + username);
     var promise = playbook.exec();
     promise.then(function(result) {
         console.log(result.output);
@@ -114,11 +140,11 @@ function runPlaybook(stack, username, email, ipAddress) {
         var body = 'We have created a new ' + stack + 'stack on ' + ipAddress + '. You can login with username ' + username;
         console.log(email);
         transporter.sendMail({
-            from: 'onboarding.bot510@gmail.com',
+            from: data.software_details[0].from,
             to: email,
             subject: 'New stack configured!',
-            html: '<b>'+body+'</b>'
-        });  
+            html: '<b>' + body + '</b>'
+        });
     });
     playbook.on('stdout', function(data) {
         console.log(data.toString());

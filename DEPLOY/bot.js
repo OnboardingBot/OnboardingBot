@@ -1,21 +1,43 @@
 var Botkit = require('botkit');
 var fs = require('fs');
-var contents = fs.readFileSync("mockdata.json");
 var configureStack = require('./configureStack.js');
 var grantdb =require('./grantdb.js');
 
 var request = require('request');
 var Promise = require('bluebird');
 var parse = require('parse-link-header');
+var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 
-var mockData = JSON.parse(contents);
-var teamList = mockData.teamlist;
-var userList = mockData.user;
-var stackList = mockData.stacklist;
+var url = 'mongodb://45.55.165.167:27017/local';
 
-var owner = "ssreeni";
-var urlRoot = "https://github.ncsu.edu/api/v3";
+var data;
+var teamList;
+var stackList;
+var owner;
+var urlRoot;
 
+var getData = function(db, callback) {
+  // Get the documents collection
+  var collection = db.collection('data');
+  // Find some documents
+  collection.find({}, {_id: 0}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    data = docs[0];
+    teamList = data.teamlist;
+    stackList = data.stacklist;
+    owner = data.github_details[0].owner;
+    urlRoot = data.github_details[0].urlRoot;
+    callback(docs);
+  });
+}
+
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+    getData(db, function() {
+      db.close();
+    });
+});
 
 var githubtoken = "token " + process.env.GITHUB_TOKEN;
 
@@ -67,7 +89,7 @@ controller.hears('slack', 'direct_message', function(bot, message) {
             convo.ask('So you would like to join Team ' + team + '? Please confirm to proceed', [{
                 pattern: bot.utterances.yes,
                 callback: function(response, convo) {
-                    var channelName = mockData.team[teamPosition].channel;
+                    var channelName = data.team[teamPosition].channel;
                     convo.say('You have been sent an invite to the slack channel ' + channelName + ' for team ' + team + ' Please check your email.');
                     convo.next();
                 }
@@ -115,7 +137,7 @@ controller.hears('github', 'direct_message', function(bot, message) {
 
         function addGithubCollaborator(response, convo, teamPosition) {
             var team = response.text;
-            var repositories = mockData.team[teamPosition].repositories;
+            var repositories = data.team[teamPosition].repositories;
             convo.say('As a part of team ' + team + ' You have access to the repositories ' + repositories);
             convo.ask('Please enter which repository you would like to get added to as a collaborator.', function(response, convo) {
                 var repository = response.text;
@@ -185,7 +207,7 @@ controller.hears('mailing list', 'direct_message', function(bot, message) {
             convo.ask('So you would like to get added to the mailing list for team ' + team + '? Please confirm to proceed', [{
                 pattern: bot.utterances.yes,
                 callback: function(response, convo) {
-                    var mailingList = mockData.team[teamPosition].mailinglist;
+                    var mailingList = data.team[teamPosition].mailinglist;
                     convo.say('You have been successfully added to the mailing list ' + mailingList + ' for team ' + team + ' Please check your email for confirmation');
                     convo.next();
                     //checkForMoreRequests(convo);
@@ -231,7 +253,7 @@ controller.hears('database', 'direct_message', function(bot, message) {
 
         function addToDatabase(response, convo, teamPosition) {
             var team = response.text;
-            var databases = mockData.team[teamPosition].database;
+            var databases = data.team[teamPosition].database;
             convo.say('As a part of team ' + team + ' You have access to the databases ' + databases);
             convo.ask('Please enter which databases you would like to be provided access to.', function(response, convo) {
                 var database = response.text;
@@ -356,28 +378,22 @@ function checkCollaborator(owner,repo, convo) {
         }
     };
 
-    // console.log(options);
-
     request(options, function (error, response, body)
         {
-        
-            // console.log(response);
             if (body != '') {
-                addCollaborator(owner,repo);
                 convo.say('You have been added as an collaborator for the repository ' + repo);
+                addCollaborator(owner,repo, convo);
                 convo.next();
             }
             else {
-                convo.say("You are a collaborator for this team already. Please continue");
-                // convo.say("List of valid team names is " + teamList);
-                //convo.repeat();
+                convo.say("You are a collaborator for this repository already. Please continue");
                 convo.next();
             }
         }); 
 
 }
 
-function addCollaborator(owner,repo) {
+function addCollaborator(owner,repo, convo) {
 
     var options = {
         url: urlRoot + '/repos/' + owner + "/"+repo+"/collaborators/"+username,
@@ -390,13 +406,6 @@ function addCollaborator(owner,repo) {
         }
     };  
 
-    console.log(options);
-
-    request(options, function (error, response, body)
-        {
-            console.log(response);
-            console.log("You have been added as a Collaborator");
+    request(options, function (error, response, body) {
         }); 
-
-    console.log("Should Add Collaborator Here");
 }
