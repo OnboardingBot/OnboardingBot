@@ -15,7 +15,7 @@ var transporter = nodemailer.createTransport(smtpTransport({
 
 
 var config = {};
-config.token = process.env.TOKEN_DO;
+config.token = process.env.DO_TOKEN;
 
 var headers = {
     'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ var client = {
             "size": "512mb",
             "image": imageName,
             // Id to ssh_key already associated with account.
-            "ssh_keys": [3378351],
+            "ssh_keys": [4873362],
             //"ssh_keys":null,
             "backups": false,
             "ipv6": false,
