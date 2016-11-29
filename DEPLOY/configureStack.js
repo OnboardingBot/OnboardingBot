@@ -12,6 +12,10 @@ var url = 'mongodb://45.55.165.167:27017/local';
 
 var transporter;
 var data;
+var region;
+var image;
+var ssh_id;
+var size;
 
 var getData = function(db, callback) {
     // Get the documents collection
@@ -22,6 +26,10 @@ var getData = function(db, callback) {
     }).toArray(function(err, docs) {
         assert.equal(err, null);
         data = docs[0];
+        region = data.droplet_details[0].region;
+        image = data.droplet_details[0].image;
+        ssh_id = parseInt(data.droplet_details[0].ssh_id);
+        size = data.droplet_details[0].size;
         transporter = nodemailer.createTransport(smtpTransport({
             service: data.software_details[0].service,
             auth: {
@@ -54,10 +62,10 @@ var client = {
         var data = {
             "name": dropletName,
             "region": region,
-            "size": "512mb",
+            "size": size,
             "image": imageName,
             // Id to ssh_key already associated with account.
-            "ssh_keys": [4873362],
+            "ssh_keys": [ssh_id],
             //"ssh_keys":null,
             "backups": false,
             "ipv6": false,
@@ -78,21 +86,14 @@ var client = {
     }
 };
 
-var region = 'nyc1';
-var image = 'ubuntu-14-04-x64';
-
 module.exports = {
     configure: function(stack, username, email) {
         var name = stack + '-' + username;
         client.createDroplet(name, region, image, function(err, resp, body) {
-            console.log('Attempting to create Droplet');
-            // StatusCode 202 - Means server accepted request.
-            if (!err && resp.statusCode == 202) {
-                console.log('Droplet created successfully.');
+            if (err) {
+                console.log(err);
             }
-
             var dropletId = resp.body.droplet.id;
-            console.log('Waiting for droplet to initialize');
 
             setTimeout(function() {
                 updateInventory(dropletId, stack, username, email);
@@ -117,7 +118,6 @@ function updateInventory(dropletId, stack, username, email) {
             if (err) {
                 return console.log(err);
             } else {
-                console.log("Inventory File Updated for Digital Ocean droplet");
                 setTimeout(function() {
                     runPlaybook(stack, username, email, ipAddress);
                 }, 30000)
@@ -129,16 +129,11 @@ function updateInventory(dropletId, stack, username, email) {
 }
 
 function runPlaybook(stack, username, email, ipAddress) {
-    console.log('Starting playbook');
     var playbook = new Ansible.Playbook().playbook('./ansible/' + stack);
     playbook.inventory('./ansible/inventory_' + username);
     var promise = playbook.exec();
     promise.then(function(result) {
-        console.log(result.output);
-        console.log(result.code);
-        console.log('Playbook has been executed successfully');
         var body = 'We have created a new ' + stack + 'stack on ' + ipAddress + '. You can login with username ' + username;
-        console.log(email);
         transporter.sendMail({
             from: data.software_details[0].from,
             to: email,

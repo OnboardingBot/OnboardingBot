@@ -37,23 +37,17 @@ module.exports = {
             if (err) {
                 return console.log(err);
             } else {
-                console.log("Inventory File Updated for Digital Ocean Database");
                 runPlaybook(username, pwd, dbname);
-
             }
         });
     }
 }
 
 function runPlaybook(username, pwd, dbname) {
-    console.log('Starting playbook');
     var playbook = new Ansible.Playbook().playbook('./ansible/database');
     playbook.inventory('./ansible/inventory_' + username + '_database');
     var promise = playbook.exec();
     promise.then(function(result) {
-        console.log(result.output);
-        console.log(result.code);
-        console.log('Playbook has been executed successfully');
     });
     playbook.on('stdout', function(data) {
         console.log(data.toString());
