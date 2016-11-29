@@ -1,3 +1,4 @@
+require('dotenv').config()
 var needle = require('needle');
 var os = require('os');
 var fs = require('fs');

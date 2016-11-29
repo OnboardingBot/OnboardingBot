@@ -1,3 +1,4 @@
+require('dotenv').config()
 var Botkit = require('botkit');
 var fs = require('fs');
 var configureStack = require('./configureStack.js');
