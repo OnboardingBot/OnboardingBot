@@ -97,7 +97,7 @@ module.exports = {
 
             setTimeout(function() {
                 updateInventory(dropletId, stack, username, email);
-            }, 30000)
+            }, 50000)
 
         });
     }
@@ -120,7 +120,7 @@ function updateInventory(dropletId, stack, username, email) {
             } else {
                 setTimeout(function() {
                     runPlaybook(stack, username, email, ipAddress);
-                }, 30000)
+                }, 50000)
 
             }
         });

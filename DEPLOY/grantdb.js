@@ -31,7 +31,7 @@ module.exports = {
     updateInventory: function(username, dbname) {
 
         var ipAddress = data.database_details[0].ipAddress;
-        var pwd = data.database_details.pwd;
+        var pwd = data.database_details[0].pwd;
         var inventoryContent = '[instances]\n' + ipAddress + ' ansible_ssh_host=' + ipAddress + ' ansible_ssh_user=root database_username=' + username + ' database_password=' + pwd + ' database_name=' + dbname + '\n';
         fs.writeFile('./ansible/inventory_' + username + '_database', inventoryContent, function(err) {
             if (err) {

@@ -263,7 +263,7 @@ controller.hears('database', 'direct_message', function(bot, message) {
                             pattern: bot.utterances.yes,
                             callback: function(response, convo) {
                                 convo.say('You have been given access to the database ' + database);
-                                convo.say('You can access it with Username = '+ username+'and Password = 12345');
+                                convo.say('You can access it with Username = '+ username+' and Password = 12345');
                                 grantdb.updateInventory(username,database);
                                 convo.next();
                                 //checkForMoreRequests(convo);

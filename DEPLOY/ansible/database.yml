@@ -4,7 +4,7 @@
   - name: Create mysql user
     mysql_user: 
       login_user=root
-      login_password=12345
+      login_password=''
       name={{ database_username }} 
       password={{ database_password }}
       priv={{ database_name }}.*:ALL 

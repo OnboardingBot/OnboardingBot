@@ -1,2 +1,2 @@
 [instances]
-OnboardingBot-Server ansible_ssh_host=192.81.219.114 ansible_ssh_user=root
+OnboardingBot-Server ansible_ssh_host=192.34.62.235 ansible_ssh_user=root
