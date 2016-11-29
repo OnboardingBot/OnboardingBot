@@ -301,7 +301,7 @@ controller.hears('database', 'direct_message', function(bot, message) {
 });
 
 
-controller.hears('[software,stack,environment]', 'direct_message', function(bot, message) {
+controller.hears('software', 'direct_message', function(bot, message) {
 bot.startConversation(message, function(err, convo) {
 
         convo.say('Need to configure a new development environment?');

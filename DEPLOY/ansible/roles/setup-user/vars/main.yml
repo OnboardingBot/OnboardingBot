@@ -1,2 +1,3 @@
 ---
 # vars file for setup-user
+default_password: "$1$SomeSalt$NgaF9ivC3Kvs02ZpI9Jor."

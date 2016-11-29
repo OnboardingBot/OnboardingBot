@@ -20,11 +20,7 @@
     append: yes 
     state: present 
     createhome: yes
+    password: "{{ default_password }}"
   sudo: yes
-
-- name: Set up authorized keys for the deployer user
-  authorized_key: user="{{ username }}" key="{{item}}"
-  with_file:
-    - "{{ userkeyfile }}"
 
 #Reference: http://stackoverflow.com/questions/37333305/ansible-create-a-user-with-sudo-privileges
