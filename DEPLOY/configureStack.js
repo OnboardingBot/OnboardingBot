@@ -8,7 +8,7 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var MongoClient = require('mongodb').MongoClient,
     assert = require('assert');
 
-var url = 'mongodb://45.55.165.167:27017/local';
+var url = 'mongodb://localhost:27017/local';
 
 var transporter;
 var data;
